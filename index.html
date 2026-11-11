@@ -8,10 +8,10 @@
     <style>
         :root {
             --c-pink: #fad0c4;
-            --c-purple: #ffd1ff;
-            --c-yellow: #fff1eb;
-            --text-color: #555;
-            --accent: #ff758c;
+            --c-purple: #f8b6a7;
+            --c-yellow: #f3a28e;
+            --text-color: #1c1c1c;
+            --accent: #424241;
         }
 
         * {
@@ -42,12 +42,12 @@
 
         /* Glassmorphism Panels */
         .glass {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgb(228, 250, 151);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(221, 232, 121, 0.7);
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(86, 101, 52, 0.05);
             padding: 30px;
             text-align: center;
             width: 90%;
@@ -79,7 +79,7 @@
 
         /* General Button */
         .btn {
-            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            background: linear-gradient(45deg, #f9c7b5, #e9faac);
             border: none;
             padding: 12px 25px;
             border-radius: 50px;
@@ -120,7 +120,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgb(206, 243, 147);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             border: 2px solid var(--accent);
@@ -147,7 +147,7 @@
         .fingerprint-btn {
             width: 120px;
             height: 120px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgb(234, 247, 132);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -161,7 +161,7 @@
             overflow: hidden;
         }
         .fingerprint-btn.scanning {
-            box-shadow: 0 0 40px rgba(255, 154, 158, 1);
+            box-shadow: 0 0 40px rgb(239, 252, 68);
             transform: scale(0.95);
         }
         .progress-bar-container {
@@ -202,7 +202,7 @@
         .score-board {
             position: absolute;
             top: 30px;
-            background: rgba(255,255,255,0.7);
+            background: rgb(243, 249, 131);
             padding: 10px 25px;
             border-radius: 30px;
             font-size: 20px;
@@ -277,7 +277,7 @@
             position: absolute;
             font-size: 45px;
             cursor: pointer;
-            filter: drop-shadow(0 0 15px #fff);
+            filter: drop-shadow(0 0 15px #f4f4a7);
             animation: twinkle 2s infinite alternate;
             transition: transform 0.3s;
         }
@@ -299,7 +299,7 @@
         }
         .modal.active { opacity: 1; pointer-events: all; }
         .modal-content {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgb(228, 250, 154);
             padding: 20px; border-radius: 20px; width: 85%; max-width: 350px;
             text-align: center; transform: scale(0.8); transition: 0.4s;
             color: #333;
@@ -322,7 +322,7 @@
         .maze-cell.wall { background: rgba(0,0,0,0.4); }
         .maze-cell.path { background: rgba(255,255,255,0.9); }
         .maze-cell.player { background: var(--accent); border-radius: 50%; transform: scale(0.8); box-shadow: 0 0 10px var(--accent); }
-        .maze-cell.goal { background: #ffd1ff; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; border: 2px solid var(--accent); }
+        .maze-cell.goal { background: #fffed1; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; border: 2px solid var(--accent); }
         
         .maze-controls {
             display: grid;
@@ -333,7 +333,7 @@
             margin-top: 10px;
         }
         .maze-controls button {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgb(230, 248, 189);
             border: 2px solid var(--accent);
             border-radius: 12px;
             font-size: 24px;
