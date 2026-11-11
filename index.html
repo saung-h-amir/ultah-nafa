@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Nafaa Cayank 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --c-pink: #fad0c4;
+            --c-purple: #ffd1ff;
+            --c-yellow: #fff1eb;
+            --text-color: #555;
+            --accent: #ff758c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--c-pink), var(--c-purple), var(--c-yellow));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Panels */
+        .glass {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Phase Management */
+        .phase {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 10;
+        }
+        .phase.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        h2 { color: var(--accent); margin-bottom: 15px; font-size: 22px; }
+        p { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
+
+        /* General Button */
+        .btn {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+            transition: 0.3s;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .btn:hover { transform: scale(1.05); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4);
+            transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+        }
+        .toast.show { top: 40px; }
+
+        /* Floating Music Button */
+        .music-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.3);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .music-toggle-btn:hover {
+            transform: scale(1.1);
+        }
+        .music-toggle-btn.playing {
+            animation: spinMusic 4s linear infinite;
+        }
+        @keyframes spinMusic {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ================= PHASE 1: SCANNER ================= */
+        .fingerprint-btn {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            margin: 0 auto 20px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 154, 158, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .fingerprint-btn.scanning {
+            box-shadow: 0 0 40px rgba(255, 154, 158, 1);
+            transform: scale(0.95);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.1s linear;
+        }
+
+        /* ================= PHASE 2: CATCH HEARTS ================= */
+        #game-area {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+        }
+        .falling-heart {
+            position: absolute;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+            animation: fall linear infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: transform 0.1s;
+        }
+        .falling-heart:active { transform: scale(1.5); }
+        @keyframes fall {
+            from { transform: translateY(-50px) rotate(0deg); }
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+        .score-board {
+            position: absolute;
+            top: 30px;
+            background: rgba(255,255,255,0.7);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* ================= PHASE 3: GIFT BOX ================= */
+        .gift-icon {
+            font-size: 100px;
+            cursor: pointer;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            animation: floatGift 3s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
+        @keyframes floatGift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* ================= PHASE 4: SLIDES ================= */
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .slide.active { display: flex; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= PHASE 5: SCRATCH CARD ================= */
+        .scratch-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .scratch-content {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+            text-align: center;
+            padding: 20px;
+        }
+        #scratch-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* ================= PHASE 10: CONSTELLATION (Previously 6) ================= */
+        #phase10 {
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            color: white;
+        }
+        .star {
+            position: absolute;
+            font-size: 45px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 15px #fff);
+            animation: twinkle 2s infinite alternate;
+            transition: transform 0.3s;
+        }
+        .star:hover { transform: scale(1.3); }
+        .star.clicked { opacity: 0.4; filter: grayscale(1); animation: none; }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.6; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 25px #ffd1ff); }
+        }
+        
+        /* Modal for Stars */
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: 0.4s; z-index: 100;
+        }
+        .modal.active { opacity: 1; pointer-events: all; }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px; border-radius: 20px; width: 85%; max-width: 350px;
+            text-align: center; transform: scale(0.8); transition: 0.4s;
+            color: #333;
+        }
+        .modal.active .modal-content { transform: scale(1); }
+        .modal-img { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
+
+        /* ================= PHASE 7: MAZE ================= */
+        .maze-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            background: rgba(255,255,255,0.3);
+            padding: 8px;
+            border-radius: 10px;
+            margin: 15px auto;
+            width: max-content;
+        }
+        .maze-cell { width: 35px; height: 35px; border-radius: 6px; }
+        .maze-cell.wall { background: rgba(0,0,0,0.4); }
+        .maze-cell.path { background: rgba(255,255,255,0.9); }
+        .maze-cell.player { background: var(--accent); border-radius: 50%; transform: scale(0.8); box-shadow: 0 0 10px var(--accent); }
+        .maze-cell.goal { background: #ffd1ff; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; border: 2px solid var(--accent); }
+        
+        .maze-controls {
+            display: grid;
+            grid-template-columns: 60px 60px 60px;
+            grid-template-rows: 60px 60px;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .maze-controls button {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            font-size: 24px;
+            color: var(--accent);
+        }
+        .maze-controls button:active { background: var(--accent); color: white; }
+        .btn-up { grid-column: 2; grid-row: 1; }
+        .btn-left { grid-column: 1; grid-row: 2; }
+        .btn-down { grid-column: 2; grid-row: 2; }
+        .btn-right { grid-column: 3; grid-row: 2; }
+
+        /* ================= PHASE 8: BUCKS GAME ================= */
+        /* Reuses .falling-heart and .score-board from Phase 2 */
+
+        /* ================= PHASE 11: VIDEO TRAVEL ================= */
+        .video-container {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin: 0 auto 20px;
+        }
+        .video-container video { width: 100%; display: block; }
+
+        /* ================= PHASE 11: FINALE (Previously 12) ================= */
+        #phase11 { background: #111; }
+        #fireworks-canvas { position: absolute; inset: 0; z-index: 1; }
+        .finale-text {
+            z-index: 2;
+            text-align: center;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .finale-text h1 {
+            font-size: 36px;
+            background: -webkit-linear-gradient(45deg, #ff9a9e, #fecfef, #fff1eb);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 154, 158, 0.5));
+            margin-bottom: 10px;
+        }
+        .finale-text p {
+            color: #fff;
+            font-size: 20px;
+            font-style: italic;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Element -->
+    <audio id="bgm" loop preload="auto">
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Music Toggle -->
+    <button id="music-btn" class="music-toggle-btn" onclick="toggleMusic()" title="Nyalakan/Matikan Musik">🎵</button>
+
+    <div id="custom-toast" class="toast">Pesan Error</div>
+
+    <!-- PHASE 1: Gift Box ("Ada kado nih" - Paling Depan) -->
+    <div id="phase1" class="phase active">
+        <div class="glass">
+            <h2>Ada Kado Nih! 🎁</h2>
+            <p>Tap kadonya buat buka kado spesial kamu!</p>
+            <div class="gift-icon" id="gift-box" onclick="tapGift()">🎁</div>
+            <p style="margin-top: 15px; font-size: 14px;">(Tap: <span id="tap-count">0</span>/3)</p>
+        </div>
+    </div>
+
+    <!-- PHASE 2: Biometric Scanner -->
+    <div id="phase2" class="phase">
+        <div class="glass">
+            <h2>Akses Keamanan 🔐</h2>
+            <p>Eits, sebelum lihat isinya, tahan sidik jari dulu ya buat verifikasi kalau ini beneran Nafaa cayank! 💕</p>
+            <div class="fingerprint-btn" id="fp-btn">👆</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="fp-progress"></div>
+            </div>
+            <p id="fp-text" style="margin-top: 15px; font-weight: bold; color: var(--accent);"></p>
+        </div>
+    </div>
+
+    <!-- PHASE 3: Catch the Hearts -->
+    <div id="phase3" class="phase">
+        <div class="score-board">❤️ <span id="heart-score">0</span> / 10</div>
+        <div class="glass" style="z-index: 10; margin-top: -200px; padding: 15px;">
+            <p style="margin: 0; font-weight: bold;">Kumpulin 10 cinta buat lanjutin petualangan seru kita! 💕</p>
+        </div>
+        <div id="game-area"></div>
+    </div>
+
+    <!-- PHASE 4: Wrapped & Quiz -->
+    <div id="phase4" class="phase">
+        <div class="glass">
+            <!-- Slide 1 -->
+            <div class="slide active" id="slide1">
+                <h2>Friendship Wrapped ✨</h2>
+                <p><b>Fakta 1:</b> Kita sering main mendadak dan itu seru banget! Wacana? Apa itu wacana? 🚗💨</p>
+                <button class="btn" onclick="nextSlide(1)">Lanjut ➡️</button>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" id="slide2">
+                <h2>Fakta 2 💕</h2>
+                <p>Dulu kita cegil, eh sekarang kita udah punya labuhan cinta masing-masing. Terharu ya perjalanan kita 🥹</p>
+                <button class="btn" onclick="nextSlide(2)">Lanjut ➡️</button>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" id="slide3">
+                <h2>Mini Quiz! 🧐</h2>
+                <p>Siapa yang paling banyak curhat?</p>
+                <button class="btn" onclick="showToast('Salah ih! Coba lagi wkwk 😜')">Aku (Nafaa)</button>
+                <button class="btn" onclick="showToast('Yee pede banget, salah! 😝')">Kamu (Fe)</button>
+                <button class="btn" style="background: linear-gradient(45deg, #f6d365, #fda085);" onclick="goToPhase(5)">Kita berdua wkwkwk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 5: Scratch Card -->
+    <div id="phase5" class="phase">
+        <div class="glass">
+            <h2>Gosok layarnya!</h2>
+            <p>Gosok pelan-pelan ya pake jari kamu...</p>
+            <div class="scratch-container">
+                <div class="scratch-content">U're my beloved bestfriend! ❤️✨</div>
+                <canvas id="scratch-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 6: Maze Game -->
+    <div id="phase6" class="phase">
+        <div class="glass" style="max-width: 400px; padding: 20px;">
+            <h2 style="font-size: 18px;">Temukan jalan keluar untuk menemukan Fe!</h2>
+            <div id="maze-container" class="maze-grid"></div>
+            <div class="maze-controls">
+                <button class="btn-up" onclick="movePlayer(0, -1)">⬆️</button>
+                <button class="btn-left" onclick="movePlayer(-1, 0)">⬅️</button>
+                <button class="btn-down" onclick="movePlayer(0, 1)">⬇️</button>
+                <button class="btn-right" onclick="movePlayer(1, 0)">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 7: Catch Bucks -->
+    <div id="phase7" class="phase">
+        <div class="score-board">💵 <span id="bucks-score">0</span> / 10 Bucks</div>
+        <div class="glass" style="z-index: 10; margin-top: -200px; padding: 15px;">
+            <p style="margin: 0; font-weight: bold;">Kumpulin 10 Bucks buat beli tiket liburan kita!</p>
+        </div>
+        <div id="game-area-bucks" style="position: absolute; top:0; left:0; width:100%; height:100%; overflow:hidden;"></div>
+    </div>
+
+    <!-- PHASE 8: Ticket Selection -->
+    <div id="phase8" class="phase">
+        <div class="glass">
+            <h2>Pilih Tiket ✈️</h2>
+            <p>Uang kamu cukup nih 10 Bucks! Mau duduk dimana bestie?</p>
+            <button class="btn" onclick="goToPhase(9)">First Class (10 Bucks) ✨</button>
+            <button class="btn" onclick="goToPhase(9)">Business Class (10 Bucks) 🥂</button>
+        </div>
+    </div>
+
+    <!-- PHASE 9: Virtual Travel Loop -->
+    <div id="phase9" class="phase">
+        <div class="glass" id="travel-menu">
+            <h2>Virtual Travel ✈️</h2>
+            <p>Pilih negara yang mau kita kunjungin! (Kunjungi ketiganya ya!)</p>
+            <button class="btn" id="btn-edinburgh" onclick="playVideo('edinburgh')">Edinburgh 🏴󠁧󠁢󠁳󠁣󠁴󠁿</button>
+            <button class="btn" id="btn-paris" onclick="playVideo('paris')">Paris 🇫🇷</button>
+            <button class="btn" id="btn-swiss" onclick="playVideo('swiss')">Swiss 🇨🇭</button>
+            <button id="btn-next-phase" class="btn" style="display: none; background: #ff758c; margin-top: 20px;" onclick="goToConstellation()">Lanjut ke Rasi Bintang ✨</button>
+        </div>
+        
+        <div class="glass" id="travel-player" style="display: none;">
+            <h2 id="travel-title">Yeay, Kita Sampai! 🧳</h2>
+            <div class="video-container" style="width: 100%; max-width: 380px; margin: 15px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2); background: #000; position: relative;">
+                <video id="travel-video" controls autoplay loop muted playsinline webkit-playsinline preload="auto" style="width: 100%; height: 230px; object-fit: cover; display: block;"></video>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                <button id="btn-toggle-play" class="btn" style="padding: 10px 16px; font-size: 14px;" onclick="toggleVideoPlayback()">⏯️ Putar / Jeda</button>
+                <button id="btn-back-menu" class="btn" style="padding: 10px 16px; font-size: 14px;" onclick="backToMenu()">Pilih Negara Lain ✈️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 10: Constellation -->
+    <div id="phase10" class="phase">
+        <h2 style="position: absolute; top: 10%; color: white; text-align: center; width: 100%; text-shadow: 0 0 10px #ffd1ff;">Rasi Bintang Memori 🌟</h2>
+        
+        <div class="star" id="star0" style="top: 25%; left: 20%;" onclick="openStarModal(0)">✨</div>
+        <div class="star" id="star1" style="top: 50%; left: 70%;" onclick="openStarModal(1)">✨</div>
+        <div class="star" id="star2" style="top: 75%; left: 30%;" onclick="openStarModal(2)">✨</div>
+
+        <button id="btn-to-finale" class="btn" style="display: none; position: absolute; bottom: 10%; width: 200px; z-index: 10;" onclick="goToPhase(11)">Lanjut ➡️</button>
+    </div>
+
+    <!-- Modal for Phase 10 -->
+    <div class="modal" id="star-modal">
+        <div class="modal-content">
+            <img id="modal-img" class="modal-img" src="" onerror="this.src='https://placehold.co/400x400/fad0c4/ff758c?text=Foto+Kenangan'">
+            <p id="modal-text" style="font-size: 15px; margin-bottom: 20px;"></p>
+            <button class="btn" onclick="closeStarModal()">Tutup</button>
+        </div>
+    </div>
+
+    <!-- PHASE 11: Finale -->
+    <div id="phase11" class="phase">
+        <canvas id="fireworks-canvas"></canvas>
+        <div class="finale-text">
+            <h1>Happy Birthday<br>Nafaa Cayank! 🎂</h1>
+            <p>Aku sayang kamu. - Fe ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // Global Navigation
+        function goToPhase(phaseNum) {
+            document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+            document.getElementById(`phase${phaseNum}`).classList.add('active');
+            
+            if(phaseNum === 3) startHeartGame();
+            if(phaseNum === 5) initScratchCard();
+            if(phaseNum === 6) initMaze();
+            if(phaseNum === 7) startBucksGame();
+            if(phaseNum === 11) startFireworks();
+        }
+
+        // Toast Notification
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('custom-toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ================= BACKGROUND MUSIC CONTROL =================
+        let musicStarted = false;
+        function startMusic() {
+            const bgm = document.getElementById('bgm');
+            if (bgm && bgm.paused) {
+                bgm.play().then(() => {
+                    musicStarted = true;
+                    updateMusicButton(true);
+                }).catch(e => console.log("Audio waiting for user gesture:", e));
+            }
+        }
+
+        function toggleMusic() {
+            const bgm = document.getElementById('bgm');
+            if (!bgm) return;
+            if (bgm.paused) {
+                bgm.play().then(() => {
+                    musicStarted = true;
+                    updateMusicButton(true);
+                }).catch(e => console.log("Audio play error:", e));
+            } else {
+                bgm.pause();
+                updateMusicButton(false);
+            }
+        }
+
+        function updateMusicButton(isPlaying) {
+            const btn = document.getElementById('music-btn');
+            if (btn) {
+                if (isPlaying) btn.classList.add('playing');
+                else btn.classList.remove('playing');
+            }
+        }
+
+        // Putar musik otomatis dari klik atau sentuhan pertama di mana pun
+        window.addEventListener('click', () => startMusic(), { once: true });
+        window.addEventListener('touchstart', () => startMusic(), { once: true });
+
+        // ================= PHASE 1 LOGIC (GIFT BOX - PALING DEPAN) =================
+        let taps = 0;
+        function tapGift() {
+            // Musik diputar langsung sejak klik pertama kado paling depan!
+            startMusic();
+            
+            taps++;
+            document.getElementById('tap-count').innerText = taps;
+            const gift = document.getElementById('gift-box');
+            gift.style.transform = `scale(${1 + taps * 0.2}) rotate(${taps % 2 === 0 ? 15 : -15}deg)`;
+            
+            if(taps === 3) {
+                gift.style.transform = 'scale(1) rotate(0deg)';
+                showToast('Yeay! Kado terbuka! 🎉');
+                
+                // CSS confetti burst
+                for(let i=0; i<30; i++) {
+                    let conf = document.createElement('div');
+                    conf.style.position = 'absolute';
+                    conf.style.width = '10px'; conf.style.height = '10px';
+                    conf.style.background = ['#ff9a9e', '#fecfef', '#fff2a8', '#ff758c'][Math.floor(Math.random()*4)];
+                    conf.style.left = '50%'; conf.style.top = '50%';
+                    conf.style.transition = 'all 1s ease-out';
+                    document.getElementById('phase1').appendChild(conf);
+                    
+                    setTimeout(() => {
+                        conf.style.transform = `translate(${(Math.random()-0.5)*300}px, ${(Math.random()-0.5)*300}px) rotate(${Math.random()*360}deg)`;
+                        conf.style.opacity = 0;
+                    }, 50);
+                }
+                
+                setTimeout(() => goToPhase(2), 1500);
+            }
+        }
+
+        // ================= PHASE 2 LOGIC (BIOMETRIC SCANNER) =================
+        const fpBtn = document.getElementById('fp-btn');
+        const fpProgress = document.getElementById('fp-progress');
+        const fpText = document.getElementById('fp-text');
+        let holdTimer;
+        let progress = 0;
+        let isHolding = false;
+
+        function startHold(e) {
+            e.preventDefault();
+            startMusic();
+            isHolding = true;
+            fpBtn.classList.add('scanning');
+            fpText.innerText = "Memindai...";
+            
+            holdTimer = setInterval(() => {
+                if(progress < 100) {
+                    progress += 2; // 50 ticks = approx 2-3 seconds
+                    fpProgress.style.width = progress + '%';
+                } else {
+                    clearInterval(holdTimer);
+                    fpText.innerText = "Access Granted: Welcome Nafaa Cayank!";
+                    fpBtn.style.pointerEvents = 'none';
+                    setTimeout(() => goToPhase(3), 1000);
+                }
+            }, 50);
+        }
+
+        function endHold() {
+            isHolding = false;
+            clearInterval(holdTimer);
+            fpBtn.classList.remove('scanning');
+            if(progress < 100) {
+                progress = 0;
+                fpProgress.style.width = '0%';
+                fpText.innerText = "Scan dibatalkan. Tahan lebih lama!";
+            }
+        }
+
+        fpBtn.addEventListener('mousedown', startHold);
+        fpBtn.addEventListener('touchstart', startHold);
+        fpBtn.addEventListener('mouseup', endHold);
+        fpBtn.addEventListener('touchend', endHold);
+        fpBtn.addEventListener('mouseleave', endHold);
+
+        // ================= PHASE 3 LOGIC (CATCH HEARTS) =================
+        let score = 0;
+        let heartInterval;
+        function startHeartGame() {
+            const gameArea = document.getElementById('game-area');
+            const scoreDisplay = document.getElementById('heart-score');
+            const emojis = ['❤️', '💖', '✨', '💕', '🫶'];
+
+            heartInterval = setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.style.left = Math.random() * 80 + 10 + '%';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                
+                heart.addEventListener('mousedown', catchHeart);
+                heart.addEventListener('touchstart', catchHeart);
+                
+                gameArea.appendChild(heart);
+
+                setTimeout(() => { if(heart.parentNode) heart.remove(); }, 5000);
+            }, 600);
+
+            function catchHeart(e) {
+                e.preventDefault();
+                this.remove();
+                score++;
+                scoreDisplay.innerText = score;
+                if(score >= 10) {
+                    clearInterval(heartInterval);
+                    goToPhase(4);
+                }
+            }
+        }
+
+        // ================= PHASE 4 LOGIC =================
+        function nextSlide(num) {
+            document.getElementById(`slide${num}`).classList.remove('active');
+            document.getElementById(`slide${num+1}`).classList.add('active');
+        }
+
+        // ================= PHASE 5 LOGIC =================
+        function initScratchCard() {
+            const canvas = document.getElementById('scratch-canvas');
+            const ctx = canvas.getContext('2d');
+            const container = document.querySelector('.scratch-container');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Draw Silver coating
+            let gradient = ctx.createLinearGradient(0,0, canvas.width, canvas.height);
+            gradient.addColorStop(0, "#d3d3d3");
+            gradient.addColorStop(0.5, "#a9a9a9");
+            gradient.addColorStop(1, "#d3d3d3");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add some "scratch here" text pattern on top
+            ctx.fillStyle = "#888";
+            ctx.font = "14px Poppins";
+            ctx.fillText("Gosok Disini", canvas.width/2 - 40, canvas.height/2);
+
+            ctx.globalCompositeOperation = 'destination-out';
+            
+            let isDrawing = false;
+            let scratchedPixels = 0;
+            const totalPixels = canvas.width * canvas.height;
+
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                return {x, y};
+            }
+
+            function scratch(e) {
+                if(!isDrawing) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
+                ctx.fill();
+                checkScratch();
+            }
+
+            canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); });
+            canvas.addEventListener('mousemove', scratch);
+            canvas.addEventListener('touchmove', scratch);
+            window.addEventListener('mouseup', () => isDrawing = false);
+            window.addEventListener('touchend', () => isDrawing = false);
+
+            // Throttle check to avoid lag
+            let checkTimer;
+            function checkScratch() {
+                if(checkTimer) return;
+                checkTimer = setTimeout(() => {
+                    const imgData = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+                    let transparent = 0;
+                    for(let i=3; i<imgData.length; i+=4) {
+                        if(imgData[i] === 0) transparent++;
+                    }
+                    if(transparent / (imgData.length/4) > 0.5) {
+                        canvas.style.transition = 'opacity 0.5s';
+                        canvas.style.opacity = 0;
+                        setTimeout(() => goToPhase(6), 2000);
+                    }
+                    checkTimer = null;
+                }, 100);
+            }
+        }
+
+        // ================= PHASE 6 LOGIC (MAZE) =================
+        const mazeLayout = [
+            [0, 1, 0, 0, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0],
+            [0, 0, 0, 1, 0, 0, 0],
+            [1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 1, 1, 1, 0, 1, 0],
+            [0, 0, 0, 1, 0, 0, 3] // 3 is Goal (Fe)
+        ];
+        let pPos = {x: 0, y: 0};
+        
+        function initMaze() {
+            pPos = {x: 0, y: 0};
+            drawMaze();
+        }
+
+        function drawMaze() {
+            const container = document.getElementById('maze-container');
+            container.innerHTML = '';
+            for(let y=0; y<7; y++) {
+                for(let x=0; x<7; x++) {
+                    let cell = document.createElement('div');
+                    cell.className = 'maze-cell';
+                    if(mazeLayout[y][x] === 1) cell.classList.add('wall');
+                    else cell.classList.add('path');
+                    
+                    if(x === pPos.x && y === pPos.y) cell.classList.add('player');
+                    else if(mazeLayout[y][x] === 3) {
+                        cell.classList.add('goal');
+                        cell.innerText = 'Fe';
+                    }
+                    container.appendChild(cell);
+                }
+            }
+        }
+
+        function movePlayer(dx, dy) {
+            let nx = pPos.x + dx;
+            let ny = pPos.y + dy;
+            if(nx >= 0 && nx < 7 && ny >= 0 && ny < 7 && mazeLayout[ny][nx] !== 1) {
+                pPos.x = nx;
+                pPos.y = ny;
+                drawMaze();
+                if(mazeLayout[ny][nx] === 3) {
+                    setTimeout(() => goToPhase(7), 500);
+                }
+            }
+        }
+
+        // ================= PHASE 7 LOGIC (BUCKS) =================
+        let bucksScore = 0;
+        let bucksInterval;
+        function startBucksGame() {
+            const gameArea = document.getElementById('game-area-bucks');
+            const scoreDisplay = document.getElementById('bucks-score');
+            bucksScore = 0;
+            scoreDisplay.innerText = bucksScore;
+            
+            bucksInterval = setInterval(() => {
+                const buck = document.createElement('div');
+                buck.className = 'falling-heart';
+                buck.innerText = '💵';
+                buck.style.left = Math.random() * 80 + 10 + '%';
+                buck.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                
+                buck.addEventListener('mousedown', catchBuck);
+                buck.addEventListener('touchstart', catchBuck);
+                
+                gameArea.appendChild(buck);
+
+                setTimeout(() => { if(buck.parentNode) buck.remove(); }, 5000);
+            }, 600);
+
+            function catchBuck(e) {
+                e.preventDefault();
+                this.remove();
+                bucksScore++;
+                scoreDisplay.innerText = bucksScore;
+                if(bucksScore >= 10) {
+                    clearInterval(bucksInterval);
+                    goToPhase(8);
+                }
+            }
+        }
+
+        // ================= PHASE 9 LOGIC (TRAVEL LOOP) =================
+        let visitedCountries = {
+            edinburgh: false,
+            paris: false,
+            swiss: false
+        };
+
+        const countryLabels = {
+            edinburgh: 'Edinburgh 🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+            paris: 'Paris 🇫🇷',
+            swiss: 'Swiss 🇨🇭'
+        };
+
+        function playVideo(country) {
+            const menu = document.getElementById('travel-menu');
+            const player = document.getElementById('travel-player');
+            const video = document.getElementById('travel-video');
+            const titleEl = document.getElementById('travel-title');
+
+            if (titleEl && countryLabels[country]) {
+                titleEl.innerText = 'Yeay, Kita Sampai di ' + countryLabels[country] + '! 🧳';
+            }
+
+            // Tampilkan player TERLEBIH DAHULU agar video dirender dalam DOM
+            menu.style.display = 'none';
+            player.style.display = 'block';
+
+            // Reset dan set atribut video
+            video.pause();
+            video.muted = true; // Supaya autoplay diizinkan browser tanpa hambatan
+            video.playsInline = true;
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            video.controls = true;
+
+            // Set file video & muat
+            video.src = country + '.mp4';
+            video.currentTime = 0;
+            video.load();
+            
+            // Putar video
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Video berhasil diputar:", country);
+                }).catch(error => {
+                    console.log("Autoplay ditahan browser atau menunggu interaksi:", error);
+                });
+            }
+
+            visitedCountries[country] = true;
+        }
+
+        function toggleVideoPlayback() {
+            const video = document.getElementById('travel-video');
+            if (!video) return;
+            if (video.paused) {
+                video.play().catch(e => console.log("Play failed:", e));
+            } else {
+                video.pause();
+            }
+        }
+
+        function backToMenu() {
+            const menu = document.getElementById('travel-menu');
+            const player = document.getElementById('travel-player');
+            const video = document.getElementById('travel-video');
+
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
+
+            player.style.display = 'none';
+            menu.style.display = 'block';
+
+            // Beri tanda centang pada negara yang sudah dikunjungi
+            if (visitedCountries.edinburgh) {
+                const b = document.getElementById('btn-edinburgh');
+                b.innerText = 'Edinburgh 🏴󠁧󠁢󠁳󠁣󠁴󠁿 ✅';
+                b.style.opacity = '0.7';
+            }
+            if (visitedCountries.paris) {
+                const b = document.getElementById('btn-paris');
+                b.innerText = 'Paris 🇫🇷 ✅';
+                b.style.opacity = '0.7';
+            }
+            if (visitedCountries.swiss) {
+                const b = document.getElementById('btn-swiss');
+                b.innerText = 'Swiss 🇨🇭 ✅';
+                b.style.opacity = '0.7';
+            }
+
+            // Jika ketiga negara sudah dikunjungi, tampilkan tombol lanjut
+            if (visitedCountries.edinburgh && visitedCountries.paris && visitedCountries.swiss) {
+                document.getElementById('btn-next-phase').style.display = 'inline-block';
+            }
+        }
+
+        function goToConstellation() {
+            document.getElementById('phase9').classList.remove('active');
+            document.getElementById('phase10').classList.add('active');
+        }
+
+        // ================= PHASE 10 LOGIC (CONSTELLATION) =================
+        const starData = [
+            { img: "foto1.jpg", text: "Momen paling berkesan Pas nganterin kamu interview ke restoran tempat kerja pertama kamu sampe kamu sukses kaya sekarang 🥹!" },
+            { img: "foto2.jpg", text: "Hal yang paling aku syukuri: Kedewasaan kamu yang selalu ngingetin aku kalau aku lagi plenger wkwkwk 🫶" },
+            { img: "foto3.jpg", text: "Harapan tahun ini: Semoga kamu bener-bener bahagia sama hidup yang lagi dijalanin dan selalu dipermudah jalannya sama Allah. Rezekimu seluas samudera, keberuntunganmu seluas semesta!" }
+        ];
+        
+        let clickedStars = new Set();
+        
+        function openStarModal(idx) {
+            document.getElementById('modal-img').src = starData[idx].img;
+            document.getElementById('modal-text').innerText = starData[idx].text;
+            document.getElementById('star-modal').classList.add('active');
+            
+            document.getElementById(`star${idx}`).classList.add('clicked');
+            clickedStars.add(idx);
+            
+            if(clickedStars.size === 3) {
+                document.getElementById('btn-to-finale').style.display = 'block';
+            }
+        }
+
+        function closeStarModal() {
+            document.getElementById('star-modal').classList.remove('active');
+        }
+
+        // ================= PHASE 11 LOGIC (FINALE) =================
+        function startFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#ff9a9e', '#fecfef', '#fff1eb', '#fad0c4', '#ff758c'];
+
+            function createFirework(x, y) {
+                for(let i=0; i<50; i++) {
+                    particles.push({
+                        x: x, y: y,
+                        r: Math.random() * 3 + 1,
+                        dx: (Math.random() - 0.5) * 10,
+                        dy: (Math.random() - 0.5) * 10,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        life: 100
+                    });
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.fillStyle = 'rgba(17, 17, 17, 0.2)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                if(Math.random() < 0.05) {
+                    createFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
+                }
+
+                for(let i=0; i<particles.length; i++) {
+                    let p = particles[i];
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    
+                    p.x += p.dx;
+                    p.y += p.dy;
+                    p.dy += 0.05; // gravity
+                    p.life--;
+                    p.r = Math.max(0, p.r - 0.02);
+
+                    if(p.life <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+            animate();
+        }
+    </script>
+</body>
+</html>
